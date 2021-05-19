@@ -18,7 +18,10 @@ export default {
   // 4.
   methods:{
     onClick() {
-      console.log('click')
+      // 10.
+      // 12. 复用 Button组件：改'toggle-add-task' 为 'btn-click'
+      // this.$emit('toggle-add-task')
+      this.$emit('btn-click')
     }
   },
 

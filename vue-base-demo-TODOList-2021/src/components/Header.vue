@@ -1,6 +1,13 @@
 <template>
   <header>
-    <Button text="Add Task" color="green" />
+    <h1>{{ title }}</h1>
+    <!-- 11. 绑定改动按钮文字 -->
+    <!-- 12. Button组件复用，改 @toggle-add-task 为 @btn-click -->
+    <Button 
+    :text="showAddTask ? 'Close': 'Add Task'" 
+    :color="showAddTask ? 'red' : 'green' "
+    @btn-click="$emit('toggle-add-task')" 
+    />
   </header>
 </template>
 
@@ -16,6 +23,8 @@ export default {
   props: {
     text: String, 
     color: String,
+    title: String,
+    showAddTask: Boolean
   },
   components: {
     Button

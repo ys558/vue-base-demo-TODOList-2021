@@ -1,7 +1,16 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker" />
-    <AddTask @add-task='addTask' />
+    <!-- 10. 
+      v-show 或 v-if + $emit 实现折叠面板，注意3点：
+      1. v-show="showAddTask" 为 Boolean，控制 是否显示，
+      2. @toggle-add-task="toggleAddTask" 点击事件在其子组件，需要从 Button.vue 一路往上 $emit 到这里来，并注册 toggleAddTask 在 methods里
+      3. methods toggleAddTask() {} 里的逻辑控制 Boolean 值
+    -->
+    <!-- 11. 绑定 showAddTask 改动按钮文字 -->
+    <Header title="Task Tracker" @toggle-add-task="toggleAddTask" :showAddTask="showAddTask" />
+    <div v-show="showAddTask"  >
+      <AddTask @add-task='addTask' />
+    </div>
     <!-- 
       6. v-bind 或 : 数据绑定
       7. 将子组件 $emit 出来的事件进行绑定：
@@ -26,7 +35,9 @@ export default {
   data() {
     return { 
       // 6. 数据绑定：
-      tasks: []
+      tasks: [],
+      // 10. 
+      showAddTask: false, 
     }
   },
   created() {
@@ -49,7 +60,13 @@ export default {
     addTask(newTask) {
       this.tasks = [newTask, ...this.tasks,]
     },
-  }
+    // 10.
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask
+    }
+  },
+  // 10.
+  emits: ['toggle-add-task', ], 
 }
 </script>
 
